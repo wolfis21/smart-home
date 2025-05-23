@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-gray-700 dark:text-gray-300">Protocolo</label>
+                    <label class="block text-gray-700 dark:text-gray-300">Protocolo/MAC</label>
                     <input type="text" name="protocol"
                         class="w-full mt-1 px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white">
                 </div>

@@ -23,11 +23,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             DeviceSeeder::class,
-            ConsumeSeeder::class,
+            /* ConsumeSeeder::class, */
             AutomationSeeder::class,
-            AlertSeeder::class,
-            RecordSeeder::class,
-            GraphicSeeder::class,
+            /* AlertSeeder::class, */
+            /* RecordSeeder::class, */
+            /* GraphicSeeder::class, */
         ]);
     }
 }

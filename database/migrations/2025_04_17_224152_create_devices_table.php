@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 45)->nullable();
+            $table->string('name', 200)->nullable();
             $table->string('type', 45)->nullable();
             $table->string('status', 45)->nullable();
             $table->string('protocol', 45)->nullable();
-            $table->string('location', 45)->nullable();
+            $table->string('location', 200)->nullable();
              // Clave foránea a users
             $table->foreignId('users_id')->constrained('users')->onDelete('restrict')->onUpdate('restrict');
             $table->timestamps();

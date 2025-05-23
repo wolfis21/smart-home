@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use App\Console\Commands\EmulateDevice;
+use App\Console\Commands\MQTTListener;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -16,3 +17,8 @@ Artisan::command('device:emulate {device_id=sensor_001} {sensor=temperatura} {fr
         'frequency' => $frequency,
     ]);
 })->purpose('Emular un dispositivo y enviar datos periódicamente');
+
+/* comando para ejecutar la comunicacion con mosquito y laravel */
+Artisan::command('mqtt:listen', function () {
+    $this->call(MQTTListener::class);
+})->describe('Escucha mensajes MQTT desde Mosquitto');

@@ -35,7 +35,7 @@ class EmulateDevice extends Command
         $sensorType = $this->argument('sensor');
         $frequency = (int) $this->argument('frequency');
 
-        $apiUrl = config('app.url') . '/api/device/data';
+        $apiUrl = 'http://127.0.0.1:8000/api/device/data';
 
         $this->info("Emulando dispositivo: $deviceId ($sensorType) cada $frequency segundos...");
         

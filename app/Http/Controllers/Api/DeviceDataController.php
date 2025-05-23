@@ -17,22 +17,23 @@ class DeviceDataController extends Controller
                 'value' => 'nullable|string',
                 'timestamp' => 'nullable|date',
             ]);
-    
-            // Guardar los datos en la base de datos
+
+            // Guardar en la base de datos
             $automation = new Automation();
             $automation->name = 'Automatización desde API';
-            $automation->conditions = json_encode([
+            $automation->conditions = [
                 'sensor' => $validated['sensor'] ?? 'unknown',
                 'valor' => $validated['value'] ?? '0',
-            ]);
-            $automation->action = json_encode([
+            ];
+            $automation->action = [
                 'device_id' => $validated['device_id'],
                 'accion' => 'on',
-            ]);
+            ];
             $automation->time_program = now();
-            $automation->users_id = auth()->id();
+            // Asignar el ID de usuario directamente como un valor estático para prueba
+            $automation->users_id = 1;
             $automation->save();
-    
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Datos recibidos correctamente',
@@ -44,5 +45,4 @@ class DeviceDataController extends Controller
             ], 500);
         }
     }
-    
 }

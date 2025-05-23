@@ -56,9 +56,8 @@ Route::get('/report/alerts/pdf', [AlertReportController::class, 'exportPdf'])->n
 
 /* API */
 // Rutas API
-Route::middleware('api')->prefix('api')->group(function () {
-    Route::post('/device/data', [DeviceDataController::class, 'receiveData'])->name('device.data');
-});
+Route::post('/api/device/data', [DeviceDataController::class, 'receiveData'])->name('device.data');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
