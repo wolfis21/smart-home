@@ -28,6 +28,7 @@ class MQTTListener extends Command
             'iot/airconditioner2',
             'iot/washer_dryer',
             'iot/water_heater',
+            'iot/kitchen',
             'iot/sensor',
         ];
 

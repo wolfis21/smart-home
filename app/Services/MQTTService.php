@@ -102,16 +102,25 @@ class MQTTService
         ]);
 
         // Normalización de datos con unidades removidas
-        $energy = isset($data['energy_consumption']) ? str_replace("W", "", $data['energy_consumption']) : null;
-        $voltage = isset($data['voltage']) ? str_replace("V", "", $data['voltage']) : null;
-        $current = isset($data['current']) ? str_replace("A", "", $data['current']) : null;
+        $energy = isset($data['energy_consumption']) ? preg_replace('/[^0-9.]/', '', $data['energy_consumption']) : null;
+        $voltage = isset($data['voltage']) ? preg_replace('/[^0-9.]/', '', $data['voltage']) : null;
+        $current = isset($data['current']) ? preg_replace('/[^0-9.]/', '', $data['current']) : null;
 
-        if ($energy && $voltage && $current) {
-            \DB::table('consumes')->insert([
+        if (is_numeric($energy) && is_numeric($voltage) && is_numeric($current)) {
+            \Log::debug('Datos para tabla consumes', [
+                'measured_at' => $data['timestamp'] ?? now(),
                 'energy_consumption' => $energy,
                 'voltage' => $voltage,
                 'current' => $current,
+                'devices_id' => $deviceId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            \DB::table('consumes')->insert([
                 'measured_at' => $data['timestamp'] ?? now(),
+                'energy_consumption' => $energy,
+                'voltage' => $voltage,
+                'current' => $current,
                 'devices_id' => $deviceId,
                 'created_at' => now(),
                 'updated_at' => now(),
