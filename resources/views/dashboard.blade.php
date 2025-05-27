@@ -25,6 +25,44 @@
             </div>
         </div>
 
+        @if (session('success'))
+            <div class="max-w-7xl mx-auto mt-4 px-6">
+                <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-2 rounded">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+                <!-- 🟧 Últimas Notificaciones Inteligentes -->
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-12">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                        Notificaciones Inteligentes Recientes
+                    </h3>
+                    <form method="POST" action="{{ url('/ejecutar-analisis-ia') }}">
+                        @csrf
+                        <button type="submit" class="inline-flex items-center px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded shadow">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3m11 11h-4m0 0l2 2m-2-2l2-2" />
+                            </svg>
+                            Ejecutar IA
+                        </button>
+                    </form>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    @forelse ($notificaciones as $nota)
+                        <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded shadow">
+                            <h4 class="text-md font-bold text-blue-600 dark:text-blue-400">{{ $nota->event }}</h4>
+                            <p class="text-sm text-gray-800 dark:text-gray-200 mt-1">{{ $nota->description }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">{{ \Carbon\Carbon::parse($nota->date_event)->format('d/m/Y H:i') }}</p>
+                        </div>
+                    @empty
+                        <p class="text-sm text-gray-600 dark:text-gray-300">No hay notificaciones recientes disponibles.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
         <!-- 🟦 Gráficas Principales -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             <!-- Gráfico Alertas por Día -->

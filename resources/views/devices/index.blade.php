@@ -7,7 +7,7 @@
 
     <div class="py-12 bg-gray-100 dark:bg-gray-900 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 mx-auto max-w-4xl">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 mx-auto max-w-7xl">
 
                 <!-- Contenedor buscador + agregar -->
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
@@ -39,6 +39,7 @@
                     <table class="min-w-full text-gray-800 dark:text-gray-100">
                         <thead>
                             <tr>
+                                <th class="px-4 py-2 text-center">ID</th>
                                 <th class="px-4 py-2 text-center">Nombre</th>
                                 <th class="px-4 py-2 text-center">Tipo</th>
                                 <th class="px-4 py-2 text-center">Estado</th>
@@ -49,6 +50,7 @@
                         <tbody>
                             @foreach($devices as $device)
                                 <tr class="border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
+                                    <td class="px-4 py-2 text-center font-bold text-blue-600 dark:text-blue-400">{{ $device->id }}</td>
                                     <td class="px-4 py-2 text-center">{{ $device->name }}</td>
                                     <td class="px-4 py-2 text-center">{{ $device->type }}</td>
                                     <td class="px-4 py-2 text-center">{{ $device->status }}</td>
@@ -90,7 +92,9 @@
                         </tbody>
                     </table>
                 </div>
-
+            <div class="mt-4">
+                {{ $devices->links() }}
+            </div>
                 @endif
 
             </div>

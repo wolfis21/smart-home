@@ -11,6 +11,7 @@ use App\Http\Controllers\AutomationController;
 use App\Http\Controllers\MQTTController;
 use App\Http\Controllers\AlertReportController;
 use App\Http\Controllers\Api\DeviceDataController;
+use Illuminate\Support\Facades\Artisan;
 
 
 Route::get('/', function () {
@@ -58,6 +59,10 @@ Route::get('/report/alerts/pdf', [AlertReportController::class, 'exportPdf'])->n
 // Rutas API
 Route::post('/api/device/data', [DeviceDataController::class, 'receiveData'])->name('device.data');
 
+Route::post('/ejecutar-analisis-ia', function () {
+    Artisan::call('ai:analizar-datos');
+    return redirect()->back()->with('success', 'Análisis ejecutado correctamente.');
+})->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

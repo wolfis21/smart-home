@@ -127,7 +127,7 @@ class MQTTService
             ]);
         }
 
-        // Registro de alerta por temperatura alta (más de 35°C)
+        // Registro de alerta por temperatura alta (más de 35°C) HACER OTROS CASOS POR NIVEL
         if (isset($data['temperature']) && is_numeric($data['temperature']) && floatval($data['temperature']) > 35) {
             \Log::debug("Insertando en alerts con:", [
                 'type_alert' => 'Temperatura alta',
@@ -136,7 +136,7 @@ class MQTTService
                 'devices_id' => $deviceId,
                 'created_at' => now(),
             ]);
-            \DB::table('alerts')->insert([
+            \DB::table('alerts')->insert([ 
                 'type_alert' => 'Temperatura alta',
                 'message' => "Temperatura crítica detectada: {$data['temperature']}°C",
                 'level' => 'alto',
@@ -145,7 +145,7 @@ class MQTTService
             ]);
         }
 
-        // Alerta por consumo anormal (bombillos superando 20W, por ejemplo)
+        // Alerta por consumo anormal (bombillos superando 20W, por ejemplo) HACER REGISTRO DE TODOS LOS BOMBILLOS
         if (strpos($topic, 'iot/energy') !== false && $energy && floatval($energy) > 20) {
             \DB::table('alerts')->insert([
                 'type_alert' => 'Consumo anormal',

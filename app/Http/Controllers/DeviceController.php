@@ -12,15 +12,16 @@ class DeviceController extends Controller
     {
         $query = auth()->user()->devices();
 
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('type', 'like', "%{$search}%");
-            });
-        }
+    if ($request->filled('search')) {
+        $search = $request->input('search');
+        $query->where(function($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+            ->orWhere('type', 'like', "%{$search}%")
+            ->orWhere('id', $search); // permite búsqueda por ID exacto
+        });
+    }
     
-        $devices = $query->get();
+        $devices = $query->paginate(10);
     
         return view('devices.index', compact('devices'));
     }

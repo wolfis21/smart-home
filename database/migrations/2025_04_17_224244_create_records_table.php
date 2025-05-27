@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id();
-            $table->string('event', 45)->nullable(); // 🟢 flexible por ahora
+            $table->string('event', 255)->nullable(); // 🟢 flexible por ahora
             $table->string('description', 255)->nullable();
             $table->dateTime('date_event')->nullable();
                     // Relación con usuarios
