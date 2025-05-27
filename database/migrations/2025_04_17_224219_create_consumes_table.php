@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('consumes', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('measured_at')->nullable(); // ✅ mejor para consultas por fecha
-                                                         // Se puede cambiar a ->date() si se va a usar fechas reales (se evaluara depende de las API)
-            $table->string('energy_consumption', 45)->nullable();
-            $table->string('voltage', 45)->nullable();
-            $table->string('current', 45)->nullable();
+            $table->timestamp('measured_at')->nullable(); // ✅ timestamp como en tu estructura
+            $table->decimal('energy_consumption', 10, 2)->nullable(); // ✅ para consumo
+            $table->decimal('voltage', 10, 2)->nullable();             // ✅ para voltaje
+            $table->decimal('current', 10, 4)->nullable(); 
                     // Clave foránea a devices
             $table->foreignId('devices_id')->constrained('devices')->onDelete('restrict')->onUpdate('restrict');
 
