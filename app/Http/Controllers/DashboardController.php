@@ -22,11 +22,24 @@ class DashboardController extends Controller
                              ->get()
                              ->pluck('consumes')
                              ->flatten()
-                             ->sum('energy_consumption');
+                             ->sum(function ($consume) {
+                                return floatval($consume->energy_consumption) / 1000;});
         $alertasActivas = $user->devices()
                                ->withCount('alerts')
                                ->get()
                                ->sum('alerts_count');
+        
+        $consumoPorDia = DB::table('consumes') //EVALUAR
+            ->join('devices', 'consumes.devices_id', '=', 'devices.id')
+            ->where('devices.users_id', auth()->id())
+            ->whereNotNull('consumes.energy_consumption')
+            ->select(
+                DB::raw('DATE(consumes.created_at) as fecha'),
+                DB::raw('SUM(consumes.energy_consumption) / 1000 as total_kwh')
+            )
+            ->groupBy('fecha')
+            ->orderBy('fecha', 'desc')
+            ->get();
 
         // 🔥 Consultar cantidad de alertas por fecha (últimos 7 días)
         $alertsByDate = DB::table('alerts')
@@ -69,6 +82,7 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalDispositivos',
             'consumoTotal',
+            'consumoPorDia',
             'alertasActivas',
             'alertsLabels',
             'alertsData',

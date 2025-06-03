@@ -15,7 +15,7 @@ class MQTTListener extends Command
         $mqttService = new MQTTService();
         $mqttService->connect();
 
-        // Lista de tópicos a suscribirse
+        // Lista de tópicos a suscribirse MEJORAR ESTE MAPEADO RECCORRIENDO LOS DEVICES REGISTRADO LEYENDO  LOS PROTOCOLOS
         $topics = [
             'iot/temperature/humedad',
             'iot/energy1',

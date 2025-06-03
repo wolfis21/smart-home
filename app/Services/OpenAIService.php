@@ -23,12 +23,6 @@ class OpenAIService
         return $response->json()['choices'][0]['message']['content'] ?? null;
     }
 
-/*     private function construirPrompt(array $datos): string
-    {
-        return "Analiza estos datos y sugiere automatizaciones, errores o patrones:\n\n" . json_encode($datos, JSON_PRETTY_PRINT);
-    } */
-
-
     private function construirPrompt(array $datos): string
     {
         $jsonDatos = json_encode($datos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

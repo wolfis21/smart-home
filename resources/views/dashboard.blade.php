@@ -15,8 +15,11 @@
             </div>
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-gray-100">Consumo Total (kWh)</h3>
+                <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-gray-100">Consumo Total (kWh) al dia</h3>
                 <p class="text-3xl text-green-600 font-semibold">{{ number_format($consumoTotal, 2) }}</p>
+                @foreach ($consumoPorDia as $registro)
+                    <p class="text-gray-800 dark:text-gray-100">{{ $registro->fecha }}: <strong>{{ number_format($registro->total_kwh, 2) }} kWh</strong></p>
+                @endforeach
             </div>
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">

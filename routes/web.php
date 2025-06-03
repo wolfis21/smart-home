@@ -13,11 +13,9 @@ use App\Http\Controllers\AlertReportController;
 use App\Http\Controllers\Api\DeviceDataController;
 use Illuminate\Support\Facades\Artisan;
 
-
 Route::get('/', function () {
     return view('welcome');
 });
-
 /* principal */
 Route::get('/dashboard', [DashboardController::class, 'index'])
      ->middleware(['auth', 'verified'])
