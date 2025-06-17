@@ -28,7 +28,7 @@ class OpenAIService
         $jsonDatos = json_encode($datos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         return <<<PROMPT
-        Analiza los siguientes datos provenientes de sensores de una casa inteligente. Detecta patrones, errores o situaciones relevantes, y genera recomendaciones concretas para ser registradas, en español.
+        Analiza los siguientes datos provenientes de sensores de una casa inteligente, teniendo en cuenta el name de los devices, state, energy_consumption, temperature, voltage, current y timestamp. Dependiendo del name del dispositivo analiza sus patrones de consumo habitual. Detecta patrones, errores o situaciones relevantes, y genera recomendaciones concretas para ser registradas, en español.
 
         Devuelve únicamente un JSON con la siguiente estructura:
 

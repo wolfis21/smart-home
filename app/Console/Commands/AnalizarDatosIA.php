@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Alert;
 use App\Models\Consume;
 use App\Models\Record;
+use App\Models\Device;
 use App\Services\OpenAIService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -19,10 +20,12 @@ class AnalizarDatosIA extends Command
     {
         $alerts = Alert::latest()->take(50)->get()->toArray();
         $consumes = Consume::latest()->take(100)->get()->toArray();
+        $devices = Device::all();
 
         $datos = [
             'alerts' => $alerts,
             'consumes' => $consumes,
+            'devices' => $devices,
         ];
 
         $respuesta = $openAI->analizarDatos($datos);

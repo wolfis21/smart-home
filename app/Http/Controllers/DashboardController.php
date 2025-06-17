@@ -74,7 +74,7 @@ class DashboardController extends Controller
 
             // 🔔 Últimas 3 notificaciones útiles
         $notificaciones = Record::where('users_id', $user->id)
-            ->whereNotIn('event', ['Mensaje MQTTss', 'Automatización creada', 'Inicio de sesión'])
+            ->whereNotIn('event', ['Mensaje MQTTss', 'Automatización creada','Automatización eliminada','Automatización actualizada','Cierre de sesión','Inicio de sesión'])
             ->orderByDesc('date_event')
             ->limit(3)
             ->get();

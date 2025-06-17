@@ -117,7 +117,7 @@ class MQTTService
                 'updated_at' => now(),
             ]);
             \DB::table('consumes')->insert([
-                'measured_at' => $data['timestamp'] ?? now(),
+                'measured_at' => now(),
                 'energy_consumption' => $energy,
                 'voltage' => $voltage,
                 'current' => $current,

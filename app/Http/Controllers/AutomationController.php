@@ -74,47 +74,50 @@ class AutomationController extends Controller
     /**
      * Guardar una nueva automatización.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'sensor' => 'required|string',
-            'operador' => 'required|string',
-            'valor' => 'required',
-            'device_id' => 'required|exists:devices,id',
-            'accion' => 'required|string|in:on,off',
-            'time_program' => 'nullable|date_format:Y-m-d\TH:i',
-        ]);
-    
-        $conditions = [
-            'sensor' => $request->sensor,
-            'operador' => $request->operador,
-            'valor' => $request->valor,
-        ];
-    
-        $action = [
-            'device_id' => $request->device_id,
-            'accion' => $request->accion,
-        ];
-    
-        $automation = Automation::create([
-            'name' => $request->name,
-            'conditions' => json_encode($conditions),
-            'action' => json_encode($action),
-            'time_program' => $request->time_program,
-            'users_id' => auth()->id(),
-        ]);
-    
-        // Registro en historial
-        \App\Models\Record::create([
-            'event' => 'Automatización creada',
-            'description' => 'Se creó la automatización "' . $automation->name . '".',
-            'date_event' => now(),
-            'users_id' => auth()->id(),
-        ]);
-    
-        return redirect()->route('automations.index')->with('status', 'Automatización creada exitosamente.');
-    }
+   public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:100',
+        'sensor' => 'required|string',
+        'operador' => 'required|string',
+        'valor' => 'required',
+        'device_id' => 'required|exists:devices,id',
+        'accion' => 'required|string|in:on,off',
+        'time_program' => 'nullable|date_format:Y-m-d\TH:i',
+    ]);
+
+    $conditions = [
+        'sensor' => $request->sensor,
+        'operador' => $request->operador,
+        'valor' => $request->valor,
+    ];
+
+    $action = [
+        'device_id' => $request->device_id,
+        'accion' => $request->accion,
+    ];
+
+    // Si viene marcada la opción "ejecutar siempre", ignoramos el time_program
+   //time_program = $request->has('execute_always') ? null : $request->time_program;
+    $automation = Automation::create([
+        'name' => $request->name,
+        'conditions' => json_encode($conditions),
+        'action' => json_encode($action),
+        'time_program' => $time_program,
+        'users_id' => auth()->id(),
+    ]);
+
+    // Registro en historial
+    \App\Models\Record::create([
+        'event' => 'Automatización creada',
+        'description' => 'Se creó la automatización "' . $automation->name . '".',
+        'date_event' => now(),
+        'users_id' => auth()->id(),
+    ]);
+
+    return redirect()->route('automations.index')->with('status', 'Automatización creada exitosamente.');
+}
+
     
 
     /**
