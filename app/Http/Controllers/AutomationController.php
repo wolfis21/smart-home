@@ -60,15 +60,8 @@ class AutomationController extends Controller
     public function create()
     {
         $devices = Device::where('users_id', auth()->id())->get();
-
-        /* provisional hasta implementar dispositivos especificos para el hogar (NO IMPLEMENTADO ES EJEMPLO) */
-        $conditionsByDeviceType = [
-            'Aire acondicionado' => ['temperatura', 'estado'],
-            'Luces' => ['estado'],
-            'Enchufe inteligente' => ['consumo', 'estado'],
-        ];
     
-        return view('automations.create', compact('devices', 'conditionsByDeviceType'));
+        return view('automations.create', compact('devices'));
     }
 
     /**
@@ -82,7 +75,7 @@ class AutomationController extends Controller
         'operador' => 'required|string',
         'valor' => 'required',
         'device_id' => 'required|exists:devices,id',
-        'accion' => 'required|string|in:on,off',
+        'accion' => 'required|string|in:on,off,Notification',
         'time_program' => 'nullable|date_format:Y-m-d\TH:i',
     ]);
 
@@ -98,7 +91,9 @@ class AutomationController extends Controller
     ];
 
     // Si viene marcada la opción "ejecutar siempre", ignoramos el time_program
-   //time_program = $request->has('execute_always') ? null : $request->time_program;
+    
+    $time_program = $request->has('execute_always') ? null : $request->time_program;
+    
     $automation = Automation::create([
         'name' => $request->name,
         'conditions' => json_encode($conditions),

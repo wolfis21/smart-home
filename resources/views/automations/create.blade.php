@@ -5,6 +5,17 @@
         </h2>
     </x-slot>
 
+    @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
     <div class="py-12 bg-gray-100 dark:bg-gray-900 min-h-screen">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
@@ -35,18 +46,18 @@
                                 <option value="==">Igual a</option>
                             </select>
 
-                            <select name="temperatura" class="w-full sm:w-auto rounded dark:bg-gray-700 dark:text-white">
-                             <option value="" disabled selected>--Seleccione--</option>
-                             <option value="0">0°C</option>
-                             <option value="5">5°C</option>
-                             <option value="10">10°C</option>
-                             <option value="15">15°C</option>
-                             <option value="20">20°C</option>
-                            <option value="25">25°C</option>
-                            <option value="30">30°C</option>
-                            <option value="35">35°C</option>
-                            <option value="40">40°C</option>
-                             <option value="45">45°C</option>
+                            <select name="valor" class="w-full sm:w-auto rounded dark:bg-gray-700 dark:text-white">
+                                <option value="" disabled selected>--Seleccione--</option>
+                                <option value="0">0°C</option>
+                                <option value="5">5°C</option>
+                                <option value="10">10°C</option>
+                                <option value="15">15°C</option>
+                                <option value="20">20°C</option>
+                                <option value="25">25°C</option>
+                                <option value="30">30°C</option>
+                                <option value="35">35°C</option>
+                                <option value="40">40°C</option>
+                                <option value="45">45°C</option>
                             </select>
                         </div>
                     </div>
